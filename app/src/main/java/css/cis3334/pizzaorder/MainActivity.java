@@ -20,16 +20,25 @@ public class MainActivity extends AppCompatActivity implements updateViewInterfa
     TextView txtStatus;
     TextView txtPizzasOrdered;
     Spinner spinnerToppings;
+    PizzaOrderInterface pizzaOrderSystem;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        pizzaOrderSystem = new PizzaOrder ( this);
+
         // Set up our radio buttons
         rbSmall = (RadioButton) findViewById(R.id.radioButtonSmall);
         rbMedium = (RadioButton) findViewById(R.id.radioButtonMedium);
         rbLarge = (RadioButton) findViewById(R.id.radioButtonLarge);
+
+        rbSmall.append(" -- Price: S" +pizzaOrderSystem.getPrice(Pizza.pizzaSize.SMALL));
+        rbMedium.append(" -- Price: S" +pizzaOrderSystem.getPrice(Pizza.pizzaSize.MEDIUM));
+        rbLarge.append(" -- Price: S" +pizzaOrderSystem.getPrice(Pizza.pizzaSize.LARGE));
 
         // Set up the Check Boxes
         chkbxCheese = (CheckBox) findViewById(R.id.checkBoxCheese);
@@ -57,6 +66,10 @@ public class MainActivity extends AppCompatActivity implements updateViewInterfa
 
         // ****** For the Practice Activity, students need to call to OrderPizza here
         // ****** For the Assignment, students will modify the order to fit the type of pizza the user selects using the UI widgets
+
+        pizzaOrderSystem.OrderPizza("Pepperoni", "large", false);
+        txtTotal.append(pizzaOrderSystem.getTotalBill().toString());
+
 
         //display a pop up message for a long period of time
         Toast.makeText(getApplicationContext(), "You have ordered a "+orderDescription , Toast.LENGTH_LONG).show();
