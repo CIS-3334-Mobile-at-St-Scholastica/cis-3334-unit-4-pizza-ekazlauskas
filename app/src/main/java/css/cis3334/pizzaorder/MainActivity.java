@@ -61,14 +61,39 @@ public class MainActivity extends AppCompatActivity implements updateViewInterfa
 
     public void onClickOrder(View view) {
         // ****** For the Assignment, students need to add code here to get information from the UI widgets...
-
+        // ****** generated booleans for extra cheese and delivery if the checkboxes are NOT selected
         String orderDescription = "No orders yet";
+        String size = "small";
+        boolean extraCheese = false;
+        String Toppings = "";
+        boolean delivery = false;
 
         // ****** For the Practice Activity, students need to call to OrderPizza here
         // ****** For the Assignment, students will modify the order to fit the type of pizza the user selects using the UI widgets
 
-        pizzaOrderSystem.OrderPizza("Pepperoni", "large", false);
-        txtTotal.append(pizzaOrderSystem.getTotalBill().toString());
+        // ******created code for if checkbox delivery and radio buttons are selected
+        if (chkbxDelivery.isChecked()) {
+            delivery = true;
+        }
+        pizzaOrderSystem.setDelivery(delivery);
+
+        Toppings = spinnerToppings.getSelectedItem().toString();
+
+        if(rbSmall.isChecked()) {
+            size = "small";
+        }
+        if (rbMedium.isChecked()) {
+            size = "medium";
+        }
+        if (rbLarge.isChecked()){
+            size = "large";
+        }
+        if (chkbxCheese.isChecked()) {
+            extraCheese = true;
+        }
+
+        orderDescription =  pizzaOrderSystem.OrderPizza(Toppings, size, extraCheese).toString();
+        txtTotal.setText(pizzaOrderSystem.getTotalBill().toString());
 
 
         //display a pop up message for a long period of time
